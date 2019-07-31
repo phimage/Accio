@@ -33,6 +33,11 @@ class Manifest: Decodable {
 }
 
 extension Manifest {
+
+    func match(productName name: String) -> Bool {
+        return products.contains { $0.name.lowercased() == name.lowercased() }
+    }
+
     func appTargets(workingDirectory: String = GlobalOptions.workingDirectory.value ?? FileManager.default.currentDirectoryPath) throws -> [AppTarget] {
         return try targets.compactMap {
             var targetType: AppTarget.TargetType?

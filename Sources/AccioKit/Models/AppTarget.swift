@@ -41,7 +41,9 @@ extension AppTarget {
         var frameworks: [Framework] = []
 
         for libraryName in dependentLibraryNames {
-            frameworks.append(try dependencyGraph.framework(libraryName: libraryName))
+            if !manifest.match(productName: libraryName) {
+                frameworks.append(try dependencyGraph.framework(libraryName: libraryName))
+            }
         }
 
         return frameworks
